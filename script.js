@@ -14,16 +14,31 @@ let operator = '';
 
 // Loop through all the calculator buttons and add an onclick event listener to each one
 buttons.forEach(button => {
-  button.addEventListener('click', () => {
-    const buttonValue = button.textContent;
-    
-    if (!isNaN(buttonValue) || buttonValue === '.') {
-        displayInput.textContent += buttonValue;
-    }
+    button.addEventListener('click', () => {
+        const buttonValue = button.textContent;
+
+        if (!isNaN(buttonValue) || buttonValue === '.') {
+            displayInput.textContent += buttonValue;
+        }
+        else{
+            if (operator === ''){
+                firstOperand = displayInput.textContent;
+                operator = buttonValue;
+                displayHistory.textContent = `${firstOperand} ${operator}`;
+                displayInput.textContent = '';
+            }
+            else{
+                secondOperand = displayInput.textContent;
+                displayHistory.textContent = displayHistory.textContent + ` ${secondOperand} ${operator}`;
+                displayInput.textContent = operate(firstOperand, secondOperand, operator);
+            }
+                
+        }
     });
 });
 
 clearBtn.addEventListener('click', () => {
+    displayHistory.textContent = '';
     displayInput.textContent = '';
     firstOperand = '';
     secondOperand = '';
@@ -31,28 +46,35 @@ clearBtn.addEventListener('click', () => {
 });
 
 equalBtn.addEventListener('click', () => {
-    firstOperand = input.value;
+    firstOperand = displayInput.textContent;
+    displayHistory.textContent = firstOperand;
+    displayInput.textContent = '';
 });
 
 
 function operate(firstOperand, secondOperand, operator){
-    a = parseFloat(firstOperand);
-    b = parseFloat(secondOperand);
-    console.log(b)
-    switch (operator) {
-        case '+':
-            displayInput.value = add(a,b);
-            break;
-        case '-':
-            displayInput.value = subtract(a,b);
-            break;
-        case 'x':
-            displayInput.value = multiply(a,b);
-            break;
-        case '÷':
-            displayInput.value = divide(a,b);
-            break;
-      }
+    const a = parseFloat(firstOperand);
+    const b = parseFloat(secondOperand);
+    let result = "Err";
+    if(!isNaN(a) && !isNaN(b)){
+        switch (operator) {
+            case '+':
+                result = add(a,b);
+                break;
+            case '-':
+                result = subtract(a,b);
+                break;
+            case 'x':
+                result = multiply(a,b);
+                break;
+            case '÷':
+                result = divide(a,b);
+                break;
+            default:
+                result = "Err";
+          }
+    }
+    return result;
 }
 
 
