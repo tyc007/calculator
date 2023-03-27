@@ -1,7 +1,8 @@
-const buttons = document.querySelectorAll('.btn');
 const displayHistory = document.getElementById('display-input');
 const displayInput = document.getElementById('display-current');
-const addBtn = document.querySelector('#add');
+const numberBtns = document.querySelectorAll('.number');
+const operatorBtns = document.querySelectorAll('.operator');
+
 const clearBtn = document.querySelector('#clear');
 const equalBtn = document.querySelector('#equals');
 
@@ -10,10 +11,25 @@ const equalBtn = document.querySelector('#equals');
 let firstOperand = '';
 let secondOperand = '';
 let operator = '';
-let total = '';
 
+numberBtns.forEach(button => {
+    button.addEventListener('click', () => displayNumber(button.textContent))
+});
+
+function displayNumber(number) {
+    if(displayInput.textContent === '0'){
+        clearDisplayInput()
+        console.log("hello")
+    }
+    displayInput.textContent += number;
+}
+
+function clearDisplayInput() {
+    displayInput.textContent = '';
+}
 
 // Loop through all the calculator buttons and add an onclick event listener to each one
+/*
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         const buttonValue = button.textContent;
@@ -26,6 +42,7 @@ buttons.forEach(button => {
         }
     });
 });
+*/
 
 clearBtn.addEventListener('click', () => {
     displayHistory.textContent = '';
