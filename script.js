@@ -30,7 +30,7 @@ function clearAll() {
 
 
 clearBtn.addEventListener('click', () => clearAll() );
-clearEntryBtn.addEventListener('click', () => clearDisplayInput());
+clearEntryBtn.addEventListener('click', () => displayInput.textContent = '0');
 
 numberBtns.forEach(button => {
     button.addEventListener('click', () => displayAddNumber(button.textContent))
