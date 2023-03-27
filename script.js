@@ -1,10 +1,11 @@
-const displayHistory = document.getElementById('display-input');
-const displayInput = document.getElementById('display-current');
-const numberBtns = document.querySelectorAll('.number');
-const operatorBtns = document.querySelectorAll('.operator');
+const displayHistory    = document.getElementById('display-input');
+const displayInput      = document.getElementById('display-current');
+const numberBtns        = document.querySelectorAll('.number');
+const operatorBtns      = document.querySelectorAll('.operator');
 
-const clearBtn = document.querySelector('#clear');
-const equalBtn = document.querySelector('#equals');
+const decimalBtn        = document.querySelector('#decimal');
+const clearBtn          = document.querySelector('#clear');
+const equalBtn          = document.querySelector('#equals');
 
 
 // Create variables to store the first operand, operator, and second operand
@@ -12,45 +13,43 @@ let firstOperand = '';
 let secondOperand = '';
 let operator = '';
 
-numberBtns.forEach(button => {
-    button.addEventListener('click', () => displayNumber(button.textContent))
-});
-
-function displayNumber(number) {
-    if(displayInput.textContent === '0'){
-        clearDisplayInput()
-        console.log("hello")
-    }
-    displayInput.textContent += number;
-}
 
 function clearDisplayInput() {
     displayInput.textContent = '';
 }
 
-// Loop through all the calculator buttons and add an onclick event listener to each one
-/*
-buttons.forEach(button => {
-    button.addEventListener('click', () => {
-        const buttonValue = button.textContent;
 
-        if (!isNaN(buttonValue) || buttonValue === '.') {
-            displayInput.textContent += buttonValue;
-        }
-        else{
-            evaluate(buttonValue);
-        }
-    });
-});
-*/
-
-clearBtn.addEventListener('click', () => {
+function clearAll() {
     displayHistory.textContent = '';
     displayInput.textContent = '';
     firstOperand = '';
     secondOperand = '';
     operator = '';
+}
+
+
+clearBtn.addEventListener('click', () => {
+    clearAll();
 });
+
+
+numberBtns.forEach(button => {
+    button.addEventListener('click', () => displayNumber(button.textContent))
+});
+
+
+function displayNumber(number) {
+    if(displayInput.textContent === '0'){
+        clearDisplayInput()
+    }
+    displayInput.textContent += number;
+}
+
+decimalBtn.addEventListener('click', () => {
+    if(!displayInput.textContent.includes(".")) 
+        displayInput.textContent += '.'
+});
+
 
 equalBtn.addEventListener('click', () => {
     firstOperand = displayInput.textContent;
