@@ -1,7 +1,9 @@
 
 
 body {
-    background-color: #7efdfd; 
+    background-color: #7efdfd;
+    font-family: sans-serif;
+
 }
   
 
@@ -26,7 +28,7 @@ body {
     height: 40px;
     box-sizing: border-box;
     font-size: 1.5em;
-    padding: 5px;
+    padding: 7.5px;
     text-align: right;
     background-color: #fff;
 }
@@ -61,7 +63,7 @@ body {
     background-color: #ddd;
 }
   
-#clear, #backspace {
+#clear, #clear-entry {
     background-color: #ff6666;
     color: #fff;
 }
