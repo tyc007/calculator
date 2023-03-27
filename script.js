@@ -52,7 +52,7 @@ function displayAddDecimal() {
     if(displayInput.textContent === ''){
         displayInput.textContent = '0.';
     }
-    else{
+    else if(!displayInput.textContent.includes(".")){
         displayInput.textContent += '.';
     }
     
