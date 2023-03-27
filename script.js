@@ -5,6 +5,7 @@ const operatorBtns      = document.querySelectorAll('.operator');
 
 const decimalBtn        = document.querySelector('#decimal');
 const clearBtn          = document.querySelector('#clear');
+const clearEntryBtn     = document.querySelector('#clear-entry');
 const equalBtn          = document.querySelector('#equals');
 
 
@@ -28,15 +29,12 @@ function clearAll() {
 }
 
 
-clearBtn.addEventListener('click', () => {
-    clearAll();
-});
-
+clearBtn.addEventListener('click', () => clearAll() );
+clearEntryBtn.addEventListener('click', () => clearDisplayInput());
 
 numberBtns.forEach(button => {
     button.addEventListener('click', () => displayAddNumber(button.textContent))
 });
-
 
 function displayAddNumber(number) {
     if(displayInput.textContent === '0'){
@@ -45,22 +43,22 @@ function displayAddNumber(number) {
     displayInput.textContent += number;
 }
 
+
 decimalBtn.addEventListener('click', () => displayAddDecimal() );
 
-
 function displayAddDecimal() {
-    if(displayInput.textContent === ''){
-        displayInput.textContent = '0.';
-    }
-    else if(!displayInput.textContent.includes(".")){
+    if(!displayInput.textContent.includes(".")){
         displayInput.textContent += '.';
     }
-    
 }
 
+equalBtn.addEventListener('click', () => evaluate() );
 
 function evaluate(buttonValue){
-    if (operator === '')
+    if (operator === ''){
+
+    }
+    /*
     {
         firstOperand = displayInput.textContent;
         operator = buttonValue;
@@ -73,7 +71,7 @@ function evaluate(buttonValue){
         firstOperand = operate(firstOperand, secondOperand, operator);
         displayHistory.textContent = ` ${firstOperand} ${operator}`;
         displayInput.textContent = '';
-    }
+    }*/
 }
 
 
