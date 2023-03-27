@@ -22,19 +22,7 @@ buttons.forEach(button => {
             displayInput.textContent += buttonValue;
         }
         else{
-            if (operator === ''){
-                firstOperand = displayInput.textContent;
-                operator = buttonValue;
-                displayHistory.textContent = `${firstOperand} ${operator}`;
-                displayInput.textContent = '';
-            }
-            else{
-                secondOperand = displayInput.textContent;                
-                firstOperand = operate(firstOperand, secondOperand, operator);
-                displayHistory.textContent = ` ${firstOperand} ${operator}`;
-                displayInput.textContent = '';
-            }
-                
+            evaluate(buttonValue);
         }
     });
 });
@@ -52,6 +40,23 @@ equalBtn.addEventListener('click', () => {
     displayHistory.textContent = firstOperand;
     displayInput.textContent = '';
 });
+
+function evaluate(buttonValue){
+    if (operator === '')
+    {
+        firstOperand = displayInput.textContent;
+        operator = buttonValue;
+        displayHistory.textContent = `${firstOperand} ${operator}`;
+        displayInput.textContent = '';
+    }
+    else
+    {
+        secondOperand = displayInput.textContent;                
+        firstOperand = operate(firstOperand, secondOperand, operator);
+        displayHistory.textContent = ` ${firstOperand} ${operator}`;
+        displayInput.textContent = '';
+    }
+}
 
 
 function operate(firstOperand, secondOperand, operator){
