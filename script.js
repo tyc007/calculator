@@ -21,7 +21,7 @@ function clearDisplayInput() {
 
 function clearAll() {
     displayHistory.textContent = '';
-    displayInput.textContent = '';
+    displayInput.textContent = '0';
     firstOperand = '';
     secondOperand = '';
     operator = '';
@@ -34,28 +34,30 @@ clearBtn.addEventListener('click', () => {
 
 
 numberBtns.forEach(button => {
-    button.addEventListener('click', () => displayNumber(button.textContent))
+    button.addEventListener('click', () => displayAddNumber(button.textContent))
 });
 
 
-function displayNumber(number) {
+function displayAddNumber(number) {
     if(displayInput.textContent === '0'){
         clearDisplayInput()
     }
     displayInput.textContent += number;
 }
 
-decimalBtn.addEventListener('click', () => {
-    if(!displayInput.textContent.includes(".")) 
-        displayInput.textContent += '.'
-});
+decimalBtn.addEventListener('click', () => displayAddDecimal() );
 
 
-equalBtn.addEventListener('click', () => {
-    firstOperand = displayInput.textContent;
-    displayHistory.textContent = firstOperand;
-    displayInput.textContent = '';
-});
+function displayAddDecimal() {
+    if(displayInput.textContent === ''){
+        displayInput.textContent = '0.';
+    }
+    else{
+        displayInput.textContent += '.';
+    }
+    
+}
+
 
 function evaluate(buttonValue){
     if (operator === '')
