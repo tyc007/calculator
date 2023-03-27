@@ -10,6 +10,7 @@ const equalBtn = document.querySelector('#equals');
 let firstOperand = '';
 let secondOperand = '';
 let operator = '';
+let total = '';
 
 
 // Loop through all the calculator buttons and add an onclick event listener to each one
@@ -28,9 +29,10 @@ buttons.forEach(button => {
                 displayInput.textContent = '';
             }
             else{
-                secondOperand = displayInput.textContent;
-                displayHistory.textContent = displayHistory.textContent + ` ${secondOperand} ${operator}`;
-                displayInput.textContent = operate(firstOperand, secondOperand, operator);
+                secondOperand = displayInput.textContent;                
+                firstOperand = operate(firstOperand, secondOperand, operator);
+                displayHistory.textContent = ` ${firstOperand} ${operator}`;
+                displayInput.textContent = '';
             }
                 
         }
