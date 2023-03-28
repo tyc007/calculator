@@ -8,15 +8,14 @@ const clearBtn          = document.querySelector('#clear');
 const clearEntryBtn     = document.querySelector('#clear-entry');
 const equalBtn          = document.querySelector('#equals');
 
-
-// Create variables to store the first operand, operator, and second operand
 let firstOperand = '';
 let secondOperand = '';
 let operator = '';
-
+let operatorOn = false;
 
 function clearDisplayInput() {
     displayInput.textContent = '';
+    operatorOn = false;
 }
 
 
@@ -37,7 +36,7 @@ numberBtns.forEach(button => {
 });
 
 function displayAddNumber(number) {
-    if(displayInput.textContent === '0'){
+    if(displayInput.textContent === '0' || operatorOn){
         clearDisplayInput()
     }
     displayInput.textContent += number;
@@ -47,31 +46,50 @@ function displayAddNumber(number) {
 decimalBtn.addEventListener('click', () => displayAddDecimal() );
 
 function displayAddDecimal() {
-    if(!displayInput.textContent.includes(".")){
+    if(displayInput.textContent === ''){
+        displayInput.textContent = '0.';
+    } 
+    else if(!displayInput.textContent.includes(".")){
         displayInput.textContent += '.';
     }
 }
 
-equalBtn.addEventListener('click', () => evaluate() );
+equalBtn.addEventListener('click', () => evaluate(equalBtn.textContent) );
+operatorBtns.forEach(button => {
+    button.addEventListener('click', () => evaluate(button.textContent))
+});
 
+
+// TODO
 function evaluate(buttonValue){
-    if (operator === ''){
-
+    if (operator === '' && buttonValue === '=')
+    {
+        firstOperand = displayInput.textContent;
+        displayHistory.textContent = `${firstOperand} ${buttonValue}`;
+        displayInput.textContent = '';
     }
-    /*
+    else if (buttonValue === '=') {
+        if(!secondOperand) secondOperand = displayInput.textContent;
+        displayHistory.textContent = `${firstOperand} ${operator} ${secondOperand} ${buttonValue}`;
+        firstOperand = operate(firstOperand, secondOperand, operator)
+        displayInput.textContent = firstOperand;
+    }
+    else if(operator === '')
     {
         firstOperand = displayInput.textContent;
         operator = buttonValue;
         displayHistory.textContent = `${firstOperand} ${operator}`;
-        displayInput.textContent = '';
+        displayInput.textContent = firstOperand;
+        operatorOn = true;
     }
     else
     {
         secondOperand = displayInput.textContent;                
-        firstOperand = operate(firstOperand, secondOperand, operator);
         displayHistory.textContent = ` ${firstOperand} ${operator}`;
-        displayInput.textContent = '';
-    }*/
+        firstOperand = operate(firstOperand, secondOperand, operator);
+        displayInput.textContent = firstOperand;
+        operatorOn = true;
+    }
 }
 
 
@@ -114,7 +132,7 @@ function multiply(a,b) {
 };
 
 function divide(a,b) {
-	return a * b;
+    return a / b;
 };
 
 function power(a,b) {
